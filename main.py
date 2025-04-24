@@ -1,19 +1,12 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+print("¡Hola desde Railway!")
 
-app = FastAPI()
+def saludo_personalizado(nombre="Mundo"):
+  """Saluda a la persona con un mensaje personalizado."""
+  return f"¡Hola, {nombre}! Tu aplicación Python en Railway está funcionando."
 
-class AuthRequest(BaseModel):
-    username: str
-    password: str
+if __name__ == "__main__":
+  nombre_usuario = "Usuario de Railway"
+  mensaje = saludo_personalizado(nombre_usuario)
+  print(mensaje)
 
-FAKE_DB = {
-    "isa": {"password": "1234", "data": {"plan": "premium", "status": "activo"}},
-    "cat": {"password": "abcd", "data": {"plan": "free", "status": "suspendido"}},
-}
-
-@app.post("/auth")
-def authenticate(user: AuthRequest):
-    if user.username in FAKE_DB and FAKE_DB[user.username]["password"] == user.password:
-        return {"success": True, "data": FAKE_DB[user.username]["data"]}
-    raise HTTPException(status_code=401, detail="Credenciales inválidas")
+  print("\nEste script no tiene dependencias externas.")
